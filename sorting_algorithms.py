@@ -25,6 +25,7 @@ def insertion_sort(array):
             array[j + 1] = array[j]
             j -= 1
         array[j + 1] = key
+
     return array
 
 
@@ -52,6 +53,7 @@ def bubble_sort(array):
                 swapped = True
         if not swapped:
             break
+
     return array
 
 
@@ -87,11 +89,36 @@ def merge_sort(array):
     return array
 
 
+def partition(array):
+    last = len(array) - 1
+    first = 0
+    pivot, pointer = array[last], 1
+    for i in range(first, last):
+        if array[i] <= pivot:
+            array[i], array[pointer] = array[pointer], array[i]
+            pointer += 1
+    array[pointer], array[last] = array[last], array[pointer]
+
+    return pointer
+
+
+def quick_sort(l, r, array):
+    if len(array) == 1:
+        return array
+    if l > r:
+        ptr = partition(array)
+        quick_sort(l, ptr - 1, array)
+        quick_sort(ptr + 1, r, array)
+
+    return array
+
+
 def main():
     print(sorting_algo(array_random))
     print(bubble_sort(array_random))
     print(insertion_sort(array_random))
     print(merge_sort(array_random))
+    print(quick_sort(0, len(array_sorted) - 1, array_random))
 
 
 if __name__ == "__main__":
